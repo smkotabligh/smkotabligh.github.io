@@ -2,72 +2,18 @@
 <html lang="fa">
 <head>
   <meta charset="UTF-8">
-  <title>تبلیغ سمکو</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صفحه خالی</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: black;
-      color: white;
-      font-family: 'Courier New', Courier, monospace;
-      overflow: hidden;
-    }
-
-    .center {
-      position: absolute;
-      top: 50%;
-      white-space: nowrap;
-      transform: translateY(-50%);
-      animation: moveText 10s linear infinite alternate;
-    }
-
-    .text {
-      display: inline-block;
-      font-size: 2rem;
-      border-right: 2px solid #00ffff;
-      white-space: nowrap;
-      overflow: hidden;
-      width: 0;
-      animation: typing 4s steps(20) forwards, blink 0.7s step-end infinite;
-    }
-
-    /* تایپ شدن متن */
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 14ch } /* تعداد حروف */
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
-
-    /* حرکت متن */
-    @keyframes moveText {
-      from { left: -100%; }
-      to { left: 100%; }
-    }
-
-    /* نورپردازی هنگام کامل شدن تایپ */
-    .text.finished {
-      color: #00ffff;
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-      border-right: none;
+      font-family: sans-serif;
+      background-color: #f5f5f5;
     }
   </style>
 </head>
 <body>
-  <div class="center">
-    <div id="typingText" class="text">تبلیغاتی سمکو</div>
-  </div>
 
-  <script>
-    // وقتی تایپ تموم شد، کلاس نور رو اضافه کن
-    const textEl = document.getElementById('typingText');
-    textEl.addEventListener('animationend', (e) => {
-      if (e.animationName === 'typing') {
-        textEl.classList.add('finished');
-      }
-    });
-  </script>
 </body>
 </html>
