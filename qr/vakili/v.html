@@ -74,6 +74,29 @@
       border-radius: 12px;
       object-fit: cover;
     }
+
+    /* سبک برای باکس نقشه */
+    .location {
+      margin: 40px auto;
+      text-align: center;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 700px;
+    }
+    .location h2 {
+      color: #d63384;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+    }
+    .map-container iframe {
+      border-radius: 12px;
+      width: 100%;
+      height: 350px;
+      border: 0;
+    }
+
     footer {
       margin-top: 2rem;
       color: #888;
@@ -118,6 +141,19 @@
     <img src="images/image6.jpg" alt="محصول ۶">
   </section>
 
+  <!-- بخش لوکیشن -->
+  <section class="location">
+    <h2>📍 موقعیت فروشگاه روی نقشه</h2>
+    <div class="map-container">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3218.0639288682864!2d46.27536968472574!3d36.23794098006822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDE0JzE2LjYiTiA0NsKwMTYnMjMuNSJF!5e0!3m2!1sfa!2s!4v1761906986268!5m2!1sfa!2s"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
+
   <footer>
    
-    <p class="powered">Powered by 🚀@b3hxad <a href="https://
+    <p class="powered">Powered by 🚀 <a href="https://t.me/b3hxad" target="_blank" style="color:#999;text-decoration:none;">@b3hxad</a></p>
+  </footer>
+</body>
+</html>
