@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تابلوسازی سمکو</title>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "IRANSans", sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            padding: 25px 10px;
+            background: white;
+            box-shadow: 0 2px 8px #0002;
+        }
+
+        .header img.logo {
+            width: 130px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .sub-title {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Swiper Container */
+        .swiper {
+            width: 100%;
+            height: 240px;
+            margin-top: 15px;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .social-section {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            width: 55px;
+            height: 55px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 8px #0003;
+            text-decoration: none;
+            font-size: 22px;
+            color: #333;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.15);
+        }
+
+        .address-box {
+            background: white;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #0002;
+            font-size: 16px;
+            line-height: 30px;
+        }
+
+        .map-box {
+            margin: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px #0003;
+        }
+
+        iframe {
+            width: 100%;
+            height: 350px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <img src="images/logo.png" class="logo" alt="لوگو">
+        <h1>تابلوسازی سمکو</h1>
+        <div class="sub-title">طراحی و ساخت انواع تابلوهای تبلیغاتی</div>
+    </div>
+
+    <!-- Swiper Slider -->
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="images/img1.jpg" alt="نمونه کار ۱"></div>
+            <div class="swiper-slide"><img src="images/img2.jpg" alt="نمونه کار ۲"></div>
+            <div class="swiper-slide"><img src="images/img3.jpg" alt="نمونه کار ۳"></div>
+        </div>
+
+        <!-- Pagination dots -->
+        <div class="swiper-pagination"></div>
+
+        <!-- Navigation arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+    <!-- Social Media -->
+    <div class="social-section">
+        <h3>راه‌های ارتباطی</h3>
+
+        <div class="social-icons">
+            <a href="https://www.instagram.com/tablighati_smko/" target="_blank">📸</a>
+            <a href="https://t.me/tablighati_smko" target="_blank">🚀</a>
+            <a href="https://wa.me/989184560395" target="_blank">💬</a>
+            <a href="tel:09184560395">📞</a>
+        </div>
+    </div>
+
+    <!-- Address -->
+    <div class="address-box">
+        <b>آدرس:</b> سقز – خیابان حضرت عمر  
+        <br>
+        <b>تلفن:</b> 09184560395
+    </div>
+
+    <!-- Map -->
+    <div class="map-box">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3217.7726867070455!2d46.26783312526951!3d36.245015498800306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40025ad763640001%3A0x4ade73650479705e!2z2YXYs9is2K8g2K3Yttix2Kog2LnZhdixICjYseKAjNi224wg2KfZhNmE2ZHZhyDYudmG25Up!5e0!3m2!1sfa!2s!4v1764743764291!5m2!1sfa!2s"
+            allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        const swiper = new Swiper('.swiper', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 2500,
+            },
+        });
+    </script>
+
+</body>
+</html>
