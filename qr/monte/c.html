@@ -64,6 +64,12 @@ button{font-family:inherit}
 .status .dot{width:.55rem;height:.55rem;border-radius:50%;background:var(--ok)}
 .status.closed .dot{background:var(--muted)}
 
+/* logo: mask of the transparent PNG, painted with the design's text color */
+.logo{display:flex;justify-content:center;margin-bottom:1.1rem}
+html[data-design="2"] .logo,html[data-design="3"] .logo{justify-content:flex-start}
+.logo i{display:block;width:6.5rem;height:6.5rem;background:var(--fg);-webkit-mask:url("images/monte-logo.png") center/contain no-repeat;mask:url("images/monte-logo.png") center/contain no-repeat}
+html[data-design="2"] .logo i{background:var(--accent)}
+
 /* design 1: dusk */
 html[data-design="1"] .hero{background:var(--sky);padding-block:3.5rem 10.5rem}
 html[data-design="1"] .art1{display:block;inset:auto 0 0 0;height:12rem}
@@ -170,6 +176,7 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
     <canvas class="art art3" id="topo" aria-hidden="true"></canvas>
 
     <div class="wrap hero-text">
+      <div class="logo"><i role="img" aria-label="لوگوی Café Monte"></i></div>
       <p class="eyebrow" lang="en">Specialty Coffee &amp; Pastry</p>
       <p class="elev" lang="en"><span class="tri">▲</span> ELEV. 1 900 m</p>
       <h1 class="wordmark" lang="en"><span class="w1">Café</span><span class="w2">Monte</span></h1>
@@ -181,7 +188,6 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
   <section class="section wrap" id="menu" aria-labelledby="menuTitle">
     <div class="sec-head">
       <h2 id="menuTitle">منو</h2>
-      <span class="unit" id="unit"></span>
     </div>
 
     <article class="signature">
@@ -190,7 +196,6 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
         <h3>مونته لاته <span class="en" lang="en" dir="ltr">Monte Latte</span></h3>
         <p class="desc">دو شات اسپرسو، شیر بخارداده، عسل و کمی دارچین. نوشیدنی امضای کافه.</p>
       </div>
-      <b class="price" id="sigPrice"></b>
       <svg class="sig-peak" viewBox="0 0 80 50" aria-hidden="true"><path d="M0 50 L28 12 L44 34 L56 20 L80 50Z"/></svg>
     </article>
 
@@ -203,17 +208,7 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
     <dl class="info">
       <div><dt>ساعت کار</dt><dd id="hours"></dd></div>
       <div><dt>آدرس</dt><dd>خیابان نمونه، پلاک ۱۲</dd></div>
-      <div>
-        <dt>وای‌فای</dt>
-        <dd>
-          <span class="pass" id="ssid">CafeMonte</span>
-          <div class="wifi-row">
-            <span class="pass" id="pass"></span>
-            <button class="copy" id="copyBtn" type="button">کپی رمز</button>
-          </div>
-          <p class="copy-note" id="copyNote" aria-live="polite"></p>
-        </dd>
-      </div>
+      <div><dt>تلفن</dt><dd><span class="handle">021 1234 5678</span></dd></div>
       <div><dt>اینستاگرام</dt><dd><span class="handle">@cafemonte</span></dd></div>
     </dl>
   </section>
@@ -231,32 +226,32 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
 
 <script>
 (function(){
-  var CAFE={currency:'هزار تومان',open:8,close:23,wifiPass:'monte2026',signaturePrice:145};
+  var CAFE={open:8,close:23};
   var TABS=[['hot','قهوه گرم'],['cold','نوشیدنی سرد'],['sweet','شیرینی']];
   var MENU={
     hot:[
-      ['اسپرسو','Espresso','دابل‌شات، غلیظ و با کرمای طلایی',75],
-      ['آمریکانو','Americano','اسپرسو با آب داغ، سبک و تمیز',85],
-      ['کاپوچینو','Cappuccino','اسپرسو، شیر بخارداده و فوم مخملی',115],
-      ['لاته','Latte','اسپرسو با شیر زیاد و فوم نازک',120],
-      ['فلت وایت','Flat White','دو شات اسپرسو با شیر ابریشمی',125],
-      ['موکا','Mocha','اسپرسو، شکلات تلخ و شیر',135]
+      ['اسپرسو','Espresso','دابل‌شات، غلیظ و با کرمای طلایی'],
+      ['آمریکانو','Americano','اسپرسو با آب داغ، سبک و تمیز'],
+      ['کاپوچینو','Cappuccino','اسپرسو، شیر بخارداده و فوم مخملی'],
+      ['لاته','Latte','اسپرسو با شیر زیاد و فوم نازک'],
+      ['فلت وایت','Flat White','دو شات اسپرسو با شیر ابریشمی'],
+      ['موکا','Mocha','اسپرسو، شکلات تلخ و شیر']
     ],
     cold:[
-      ['آیس لاته','Iced Latte','اسپرسو، شیر سرد و یخ',130],
-      ['کلد برو','Cold Brew','دم‌آوری آهسته در سرما، ۱۴ ساعت',140],
-      ['اسپرسو تونیک','Espresso Tonic','اسپرسو روی تونیک و لیمو',140],
-      ['آفوگاتو','Affogato','بستنی وانیلی با یک شات اسپرسو داغ',150],
-      ['آیس موکا','Iced Mocha','اسپرسو، شکلات و شیر سرد',145],
-      ['لیموناد نعنا','Mint Lemonade','لیمو تازه، نعنا و کمی گاز',105]
+      ['آیس لاته','Iced Latte','اسپرسو، شیر سرد و یخ'],
+      ['کلد برو','Cold Brew','دم‌آوری آهسته در سرما، ۱۴ ساعت'],
+      ['اسپرسو تونیک','Espresso Tonic','اسپرسو روی تونیک و لیمو'],
+      ['آفوگاتو','Affogato','بستنی وانیلی با یک شات اسپرسو داغ'],
+      ['آیس موکا','Iced Mocha','اسپرسو، شکلات و شیر سرد'],
+      ['لیموناد نعنا','Mint Lemonade','لیمو تازه، نعنا و کمی گاز']
     ],
     sweet:[
-      ['تیرامیسو','Tiramisu','ماسکارپونه و بیسکویت آغشته به قهوه',165],
-      ['چیزکیک','Cheesecake','پایه کره‌ای با سس توت‌فرنگی',160],
-      ['کروسان کره','Butter Croissant','تازه‌پز، ترد بیرون و نرم داخل',95],
-      ['براونی گردو','Walnut Brownie','شکلات تلخ و گردوی خردشده',115],
-      ['کیک هویج','Carrot Cake','دارچین، گردو و کرم پنیری',135],
-      ['کوکی شکلاتی','Choc Chip Cookie','تکه‌های شکلات، نرم در مرکز',70]
+      ['تیرامیسو','Tiramisu','ماسکارپونه و بیسکویت آغشته به قهوه'],
+      ['چیزکیک','Cheesecake','پایه کره‌ای با سس توت‌فرنگی'],
+      ['کروسان کره','Butter Croissant','تازه‌پز، ترد بیرون و نرم داخل'],
+      ['براونی گردو','Walnut Brownie','شکلات تلخ و گردوی خردشده'],
+      ['کیک هویج','Carrot Cake','دارچین، گردو و کرم پنیری'],
+      ['کوکی شکلاتی','Choc Chip Cookie','تکه‌های شکلات، نرم در مرکز']
     ]
   };
 
@@ -269,7 +264,7 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
   function renderMenu(){
     var html='';
     MENU[current].forEach(function(it){
-      html+='<li class="item"><div><h3>'+it[0]+'<span class="en" lang="en" dir="ltr">'+it[1]+'</span></h3><p>'+it[2]+'</p></div><b class="price">'+toFa(it[3])+'</b></li>';
+      html+='<li class="item"><div><h3>'+it[0]+'<span class="en" lang="en" dir="ltr">'+it[1]+'</span></h3><p>'+it[2]+'</p></div></li>';
     });
     $('menuList').innerHTML=html;
     Array.prototype.forEach.call($('tabs').children,function(b){b.setAttribute('aria-selected',b.dataset.k===current?'true':'false')});
@@ -280,10 +275,7 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
     b.addEventListener('click',function(){current=t[0];renderMenu()});
     $('tabs').appendChild(b);
   });
-  $('unit').textContent='قیمت‌ها به '+CAFE.currency;
-  $('sigPrice').textContent=toFa(CAFE.signaturePrice);
   $('hours').textContent='هر روز '+toFa(CAFE.open)+':۰۰ تا '+toFa(CAFE.close)+':۰۰';
-  $('pass').textContent=CAFE.wifiPass;
   renderMenu();
 
   /* open / closed */
@@ -293,17 +285,6 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
     $('statusText').textContent=open?'الان باز است · تا '+toFa(CAFE.close)+':۰۰':'الان بسته است · ساعت '+toFa(CAFE.open)+':۰۰ باز می‌شود';
   }
   renderStatus();setInterval(renderStatus,60000);
-
-  /* wifi copy */
-  $('copyBtn').addEventListener('click',function(){
-    var note=$('copyNote');
-    function ok(){note.textContent='رمز کپی شد';setTimeout(function(){note.textContent=''},2500)}
-    function fail(){
-      try{var r=document.createRange();r.selectNodeContents($('pass'));var s=window.getSelection();s.removeAllRanges();s.addRange(r)}catch(e){}
-      note.textContent='رمز انتخاب شد، آن را کپی کنید'
-    }
-    try{navigator.clipboard.writeText(CAFE.wifiPass).then(ok,fail)}catch(e){fail()}
-  });
 
   /* topographic canvas (design 3) */
   function drawTopo(){
