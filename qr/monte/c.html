@@ -1,4 +1,3 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Café Monte</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,6 +131,8 @@ html[data-design="3"] .tab[aria-selected="true"]{background:transparent;color:va
 .item .en{font-size:.74rem;font-weight:400;color:var(--item-muted);margin-inline-start:.5rem;letter-spacing:.03em}
 .item p{font-size:.88rem;line-height:1.7;color:var(--item-muted)}
 .price{flex:none;font-weight:800;font-size:1.05rem;color:var(--price-fg);background:var(--price-bg);min-width:2.9rem;text-align:center;padding:.1rem .65rem;border-radius:99px;font-variant-numeric:tabular-nums}
+.sub{list-style:none;font-size:.82rem;font-weight:700;letter-spacing:.04em;color:var(--muted);padding-top:1.5rem;padding-bottom:.3rem;border-bottom:1px solid var(--line)}
+.sub:first-child{padding-top:.4rem}
 html[data-design="2"] .menu{gap:.7rem}
 html[data-design="2"] .item{border:0;border-radius:var(--r);padding:1rem 1.1rem}
 html[data-design="3"] .item{border-bottom-style:dotted}
@@ -190,15 +191,6 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
       <h2 id="menuTitle">منو</h2>
     </div>
 
-    <article class="signature">
-      <div>
-        <p class="sig-label">پیشنهاد کافه</p>
-        <h3>مونته لاته <span class="en" lang="en" dir="ltr">Monte Latte</span></h3>
-        <p class="desc">دو شات اسپرسو، شیر بخارداده، عسل و کمی دارچین. نوشیدنی امضای کافه.</p>
-      </div>
-      <svg class="sig-peak" viewBox="0 0 80 50" aria-hidden="true"><path d="M0 50 L28 12 L44 34 L56 20 L80 50Z"/></svg>
-    </article>
-
     <div class="tabs" role="tablist" aria-label="دسته‌بندی منو" id="tabs"></div>
     <ul class="menu" id="menuList" role="tabpanel"></ul>
   </section>
@@ -207,13 +199,10 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
     <div class="sec-head"><h2 id="infoTitle">اطلاعات</h2></div>
     <dl class="info">
       <div><dt>ساعت کار</dt><dd id="hours"></dd></div>
-      <div><dt>آدرس</dt><dd>خیابان نمونه، پلاک ۱۲</dd></div>
-      <div><dt>تلفن</dt><dd><span class="handle">021 1234 5678</span></dd></div>
-      <div><dt>اینستاگرام</dt><dd><span class="handle">@cafemonte</span></dd></div>
+            <div><dt>تلفن</dt><dd><span class="handle">09307761386</span></dd></div>
+      <div><dt>اینستاگرام</dt><dd><span class="handle">@moonte.cafe</span></dd></div>
     </dl>
   </section>
-
-  <footer class="wrap foot">منتظر دیدار شما هستیم</footer>
 
   <nav class="switcher" aria-label="انتخاب طرح">
     <div class="sw" id="sw">
@@ -227,31 +216,67 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
 <script>
 (function(){
   var CAFE={open:8,close:23};
-  var TABS=[['hot','قهوه گرم'],['cold','نوشیدنی سرد'],['sweet','شیرینی']];
+  var TABS=[['food','غذا'],['drinks','نوشیدنی'],['hookah','هوکا']];
   var MENU={
-    hot:[
-      ['اسپرسو','Espresso','دابل‌شات، غلیظ و با کرمای طلایی'],
-      ['آمریکانو','Americano','اسپرسو با آب داغ، سبک و تمیز'],
-      ['کاپوچینو','Cappuccino','اسپرسو، شیر بخارداده و فوم مخملی'],
-      ['لاته','Latte','اسپرسو با شیر زیاد و فوم نازک'],
-      ['فلت وایت','Flat White','دو شات اسپرسو با شیر ابریشمی'],
-      ['موکا','Mocha','اسپرسو، شکلات تلخ و شیر']
+    food:[
+      ['غذای اصلی',[
+        ['پاستا الفردو چیکن',612],
+        ['پنینی مرغ',485],
+        ['بشقاب رژیمی',845]
+      ]],
+      ['پیش غذا',[
+        ['سالاد سزار',595],
+        ['سیب زمینی',339]
+      ]]
     ],
-    cold:[
-      ['آیس لاته','Iced Latte','اسپرسو، شیر سرد و یخ'],
-      ['کلد برو','Cold Brew','دم‌آوری آهسته در سرما، ۱۴ ساعت'],
-      ['اسپرسو تونیک','Espresso Tonic','اسپرسو روی تونیک و لیمو'],
-      ['آفوگاتو','Affogato','بستنی وانیلی با یک شات اسپرسو داغ'],
-      ['آیس موکا','Iced Mocha','اسپرسو، شکلات و شیر سرد'],
-      ['لیموناد نعنا','Mint Lemonade','لیمو تازه، نعنا و کمی گاز']
+    drinks:[
+      ['شیک',[
+        ['شیک شکلات',319],
+        ['شیک شکلات موز',353],
+        ['شیک موز',333],
+        ['شیک توت فرنگی',367],
+        ['شیک لوتوس',349],
+        ['شیک بادام زمینی',337],
+        ['شیک وانیل',291],
+        ['شیک پسته',388]
+      ]],
+      ['دمنوش و چای',[
+        ['اپل پارادایس',187],
+        ['دمنوش آرامش',169],
+        ['کویین بری',154],
+        ['نعنا مراکشی',132],
+        ['چای سیاه',90],
+        ['چای سبز',124],
+        ['چای زعفران',212],
+        ['چای هل',165],
+        ['چای دارچین',107],
+        ['هات چاکلت',226],
+        ['چای ماسالا',198]
+      ]],
+      ['ماکتیل',[
+        ['لیدی سور',280],
+        ['هاوانا دریم',294],
+        ['مونته سیگنیچر',311],
+        ['کوکونادین',298],
+        ['جینجرید',278],
+        ['موهیتو',258],
+        ['رد موهیتو',258],
+        ['لیموناد',238],
+        ['بلو لاو',295]
+      ]]
     ],
-    sweet:[
-      ['تیرامیسو','Tiramisu','ماسکارپونه و بیسکویت آغشته به قهوه'],
-      ['چیزکیک','Cheesecake','پایه کره‌ای با سس توت‌فرنگی'],
-      ['کروسان کره','Butter Croissant','تازه‌پز، ترد بیرون و نرم داخل'],
-      ['براونی گردو','Walnut Brownie','شکلات تلخ و گردوی خردشده'],
-      ['کیک هویج','Carrot Cake','دارچین، گردو و کرم پنیری'],
-      ['کوکی شکلاتی','Choc Chip Cookie','تکه‌های شکلات، نرم در مرکز']
+    hookah:[
+      ['هوکا',[
+        ['اسپشیال مونته',397],
+        ['کلاسیک',397],
+        ['مسکو',379],
+        ['اسکای فال',379],
+        ['هاوانا',379],
+        ['لیدی',379],
+        ['لاو',379],
+        ['طالبی هندوانه',379],
+        ['دوسیب',379]
+      ]]
     ]
   };
 
@@ -260,11 +285,14 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
   var $=function(id){return document.getElementById(id)};
 
   /* menu */
-  var current='hot';
+  var current='food';
   function renderMenu(){
     var html='';
-    MENU[current].forEach(function(it){
-      html+='<li class="item"><div><h3>'+it[0]+'<span class="en" lang="en" dir="ltr">'+it[1]+'</span></h3><p>'+it[2]+'</p></div></li>';
+    MENU[current].forEach(function(grp){
+      if(MENU[current].length>1)html+='<li class="sub">'+grp[0]+'</li>';
+      grp[1].forEach(function(it){
+        html+='<li class="item"><div><h3>'+it[0]+'</h3></div><b class="price">'+toFa(it[1])+'</b></li>';
+      });
     });
     $('menuList').innerHTML=html;
     Array.prototype.forEach.call($('tabs').children,function(b){b.setAttribute('aria-selected',b.dataset.k===current?'true':'false')});
@@ -325,5 +353,3 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
   setDesign(root.getAttribute('data-design')||'1');
 })();
 </script>
-
-</body></html>
