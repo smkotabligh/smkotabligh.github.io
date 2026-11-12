@@ -116,8 +116,7 @@ html[data-design="3"] .eyebrow{color:var(--fg)}
 .signature p.desc{font-size:.9rem;line-height:1.7}
 .signature .price{position:relative;background:var(--sig-fg);color:var(--sig-bg)}
 .sig-peak{position:absolute;left:0;bottom:0;width:7rem;height:auto;fill:currentColor;opacity:.13}
-.tabs{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.3rem;margin-bottom:1rem;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
+.tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem}
 .tab{flex:none;font-weight:500;font-size:.95rem;padding:.45rem 1.1rem;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
 .tab[aria-selected="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 html[data-design="2"] .tab{border-width:2px;border-radius:.6rem;font-weight:700}
@@ -131,8 +130,15 @@ html[data-design="3"] .tab[aria-selected="true"]{background:transparent;color:va
 .item .en{font-size:.74rem;font-weight:400;color:var(--item-muted);margin-inline-start:.5rem;letter-spacing:.03em}
 .item p{font-size:.88rem;line-height:1.7;color:var(--item-muted)}
 .price{flex:none;font-weight:800;font-size:1.05rem;color:var(--price-fg);background:var(--price-bg);min-width:2.9rem;text-align:center;padding:.1rem .65rem;border-radius:99px;font-variant-numeric:tabular-nums}
-.sub{list-style:none;font-size:.82rem;font-weight:700;letter-spacing:.04em;color:var(--muted);padding-top:1.5rem;padding-bottom:.3rem;border-bottom:1px solid var(--line)}
-.sub:first-child{padding-top:.4rem}
+.sub{list-style:none;display:flex;align-items:center;justify-content:center;gap:.9rem;font-size:1.3rem;font-weight:800;line-height:1.4;color:var(--fg);padding-top:1.9rem;padding-bottom:.7rem}
+.sub::before,.sub::after{content:"";flex:1;height:1px;background:var(--line)}
+.sub:first-child{padding-top:1.2rem}
+.note{list-style:none;text-align:center;font-size:.9rem;color:var(--muted);padding-top:1.1rem;line-height:1.8}
+.extras{display:grid;gap:1.6rem;margin-top:2.6rem;padding-top:.4rem;border-top:1px solid var(--line)}
+.extra{text-align:center}
+.extra h3{font-size:1.3rem;font-weight:800;line-height:1.4;padding-top:1.2rem}
+.extra p{color:var(--muted);font-size:.95rem;line-height:1.8;margin-top:.3rem}
+.extra .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
 html[data-design="2"] .menu{gap:.7rem}
 html[data-design="2"] .item{border:0;border-radius:var(--r);padding:1rem 1.1rem}
 html[data-design="3"] .item{border-bottom-style:dotted}
@@ -193,16 +199,29 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
 
     <div class="tabs" role="tablist" aria-label="دسته‌بندی منو" id="tabs"></div>
     <ul class="menu" id="menuList" role="tabpanel"></ul>
+
+    <div class="extras">
+      <div class="extra">
+        <h3>پیستری</h3>
+        <p>شیرینی های تازه امروز منتظر شما در ویترین مونته هستند</p>
+      </div>
+      <div class="extra">
+        <h3>توضیحات</h3>
+        <p>امکان سفارش با لاین عربیکا <span class="ltr">+۲۵ت</span></p>
+      </div>
+    </div>
   </section>
 
   <section class="section wrap" id="info" aria-labelledby="infoTitle">
     <div class="sec-head"><h2 id="infoTitle">اطلاعات</h2></div>
     <dl class="info">
       <div><dt>ساعت کار</dt><dd id="hours"></dd></div>
-            <div><dt>تلفن</dt><dd><span class="handle">09307761386</span></dd></div>
+      <div><dt>تلفن</dt><dd><span class="handle">09307761386</span></dd></div>
       <div><dt>اینستاگرام</dt><dd><span class="handle">@moonte.cafe</span></dd></div>
     </dl>
   </section>
+
+  <footer class="wrap foot">منتظر دیدار شما هستیم</footer>
 
   <nav class="switcher" aria-label="انتخاب طرح">
     <div class="sw" id="sw">
@@ -216,7 +235,7 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
 <script>
 (function(){
   var CAFE={open:8,close:23};
-  var TABS=[['food','غذا'],['drinks','نوشیدنی'],['hookah','هوکا']];
+  var TABS=[['food','غذا و پیش‌غذا'],['coffee','قهوه و نوشیدنی گرم'],['mock','ماکتیل'],['shake','شیک'],['tea','چای و دمنوش'],['hookah','هوکا']];
   var MENU={
     food:[
       ['غذای اصلی',[
@@ -229,7 +248,43 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
         ['سیب زمینی',339]
       ]]
     ],
-    drinks:[
+    coffee:[
+      ['بر پایه قهوه',[
+        ['اسپرسو تک',137],
+        ['دبل',149],
+        ['موکا',252],
+        ['امریکانو',174],
+        ['لاته',209],
+        ['کاپوچینو',207],
+        ['کورتادو',199],
+        ['کارامل ماکیاتو',244],
+        ['ماکیاتو وانیل',244],
+        ['ماکیاتو فندق',244],
+        ['ماکیاتو آیریش',244],
+        ['لاته زنجبیل',231],
+        ['کوکو لاته',244],
+        ['آفوگاتو',218],
+        ['ماچا کوکو استرابری',293],
+        ['ماچا لاته',273],
+        ['فراپاچینو شکلاتی',289],
+        ['فراپاچینو وانیل',275]
+      ],
+        'تمام نوشیدنی های بر پایه قهوه بصورت گرم و سرد قابل سرو هستند']
+    ],
+    mock:[
+      ['ماکتیل',[
+        ['لیدی سور',280],
+        ['هاوانا دریم',294],
+        ['مونته سیگنیچر',311],
+        ['کوکونادین',298],
+        ['جینجرید',278],
+        ['موهیتو',258],
+        ['رد موهیتو',258],
+        ['لیموناد',238],
+        ['بلو لاو',295]
+      ]]
+    ],
+    shake:[
       ['شیک',[
         ['شیک شکلات',319],
         ['شیک شکلات موز',353],
@@ -239,8 +294,10 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
         ['شیک بادام زمینی',337],
         ['شیک وانیل',291],
         ['شیک پسته',388]
-      ]],
-      ['دمنوش و چای',[
+      ]]
+    ],
+    tea:[
+      ['چای و دمنوش',[
         ['اپل پارادایس',187],
         ['دمنوش آرامش',169],
         ['کویین بری',154],
@@ -252,17 +309,6 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
         ['چای دارچین',107],
         ['هات چاکلت',226],
         ['چای ماسالا',198]
-      ]],
-      ['ماکتیل',[
-        ['لیدی سور',280],
-        ['هاوانا دریم',294],
-        ['مونته سیگنیچر',311],
-        ['کوکونادین',298],
-        ['جینجرید',278],
-        ['موهیتو',258],
-        ['رد موهیتو',258],
-        ['لیموناد',238],
-        ['بلو لاو',295]
       ]]
     ],
     hookah:[
@@ -289,10 +335,11 @@ catch(e){document.documentElement.setAttribute('data-design','1')}
   function renderMenu(){
     var html='';
     MENU[current].forEach(function(grp){
-      if(MENU[current].length>1)html+='<li class="sub">'+grp[0]+'</li>';
+      html+='<li class="sub">'+grp[0]+'</li>';
       grp[1].forEach(function(it){
         html+='<li class="item"><div><h3>'+it[0]+'</h3></div><b class="price">'+toFa(it[1])+'</b></li>';
       });
+      if(grp[2])html+='<li class="note">'+grp[2]+'</li>';
     });
     $('menuList').innerHTML=html;
     Array.prototype.forEach.call($('tabs').children,function(b){b.setAttribute('aria-selected',b.dataset.k===current?'true':'false')});
