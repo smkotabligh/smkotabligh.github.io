@@ -1,403 +1,479 @@
-<title>Café Monte</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&family=Gloock&family=Anton&family=Unbounded:wght@300;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<style>
-/* Layout concept: one phone-width column. Full-bleed hero (art changes per design), then menu, then info. Three committed looks: 1 dusk over mountains, 2 Italian bar awning, 3 topographic map. */
-:root{
-  /* design 1 (default): dusk */
-  --bg:#161b2a; --fg:#f4ece3; --muted:#b4b9cc; --accent:#ffb36b; --on-accent:#1b1a22;
-  --surface:#222a40; --surface-fg:#f4ece3; --line:rgba(244,236,227,.18); --ok:#58d6a0;
-  --m1:#2c3354; --m2:#222846; --glow:rgba(255,179,107,.45);
-  --sky:linear-gradient(180deg,#161b2a 0%,#2f2f5a 38%,#b95d78 74%,#ffb36b 100%);
-  --f-display:'Gloock',Georgia,serif;
-  --f-body:'Vazirmatn',Tahoma,system-ui,sans-serif;
-  --f-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
-  --r:1rem; --hero-align:center;
-  --item-bg:transparent; --item-fg:var(--fg); --item-muted:var(--muted);
-  --price-bg:transparent; --price-fg:var(--accent);
-  --sig-bg:var(--accent); --sig-fg:var(--on-accent);
-  --contour:transparent;
-  color-scheme:dark;
-}
-html[data-design="2"]{
-  --bg:#1c3fd6; --fg:#fff4dc; --muted:#d3dcff; --accent:#ffc61a; --on-accent:#12206b;
-  --surface:#fff4dc; --surface-fg:#12206b; --line:rgba(255,244,220,.32); --ok:#7dffb6;
-  --f-display:'Anton',Impact,'Arial Narrow',sans-serif;
-  --r:.8rem; --hero-align:right;
-  --item-bg:var(--surface); --item-fg:var(--surface-fg); --item-muted:#46569e;
-  --price-bg:var(--accent); --price-fg:var(--on-accent);
-  --sig-bg:var(--accent); --sig-fg:var(--on-accent);
-  color-scheme:dark;
-}
-html[data-design="3"]{
-  --bg:#eef1ec; --fg:#15251e; --muted:#58695f; --accent:#d6431a; --on-accent:#ffffff;
-  --surface:#e1e7df; --surface-fg:#15251e; --line:rgba(21,37,30,.24); --ok:#1f8f5f;
-  --contour:rgba(21,37,30,.17);
-  --f-display:'Unbounded',system-ui,sans-serif;
-  --r:.25rem; --hero-align:right;
-  --price-fg:var(--fg);
-  --sig-bg:var(--fg); --sig-fg:var(--bg);
-  color-scheme:light;
-}
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b3d2e">
+  <meta name="description" content="منوی کافه مونته؛ قهوه تخصصی، نوشیدنی، غذا و شیرینی">
+  <title>منوی کافه مونته | Café Monte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=DM+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --forest: #0b3d2e;
+      --forest-2: #12543e;
+      --green: #1d7652;
+      --leaf: #b8e36a;
+      --mint: #e8f3e9;
+      --paper: #fbfcf8;
+      --white: #ffffff;
+      --ink: #17382b;
+      --muted: #718278;
+      --line: #e3ebe2;
+      --gold: #e6c879;
+      --shadow: 0 16px 40px rgba(15, 61, 45, .09);
+      --radius: 22px;
+      --font: "Vazirmatn", Tahoma, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--paper); }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-text-size-adjust: 100%;
+      padding-bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+    }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 3px solid var(--leaf);
+      outline-offset: 3px;
+    }
+    .shell { width: min(100% - 28px, 720px); margin-inline: auto; }
 
-*,*::before,*::after{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:1rem;line-height:1.75;-webkit-text-size-adjust:100%}
-h1,h2,h3,p,dl,dd,ul{margin:0}
-button{font-family:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.wrap{max-width:34rem;margin-inline:auto;padding-inline:1.25rem}
-.page{padding-bottom:6.5rem}
+    /* HERO */
+    .hero {
+      min-height: 455px;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      color: var(--white);
+      background:
+        radial-gradient(ellipse at 82% 12%, rgba(184,227,106,.19), transparent 30%),
+        radial-gradient(ellipse at 4% 66%, rgba(49,143,96,.28), transparent 33%),
+        linear-gradient(145deg, #082e24 0%, #0b3d2e 52%, #155b40 100%);
+      border-radius: 0 0 34px 34px;
+    }
+    .hero::before, .hero::after {
+      content: ""; position: absolute; pointer-events: none; z-index: -1;
+      border: 1px solid rgba(222,245,205,.13); border-radius: 50%;
+      width: 360px; height: 360px;
+    }
+    .hero::before { top: -245px; right: -95px; }
+    .hero::after { top: -215px; right: -65px; width: 300px; height: 300px; }
+    .hero-glow {
+      position: absolute; z-index: -1; width: 230px; height: 230px;
+      left: -100px; top: 90px; border-radius: 50%;
+      background: rgba(184,227,106,.1); filter: blur(7px);
+    }
+    .hero-inner { position: relative; padding-top: 28px; padding-bottom: 138px; }
+    .topline { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .brand-mini { display: inline-flex; align-items: center; gap: 9px; direction: ltr; }
+    .brand-logo {
+      display: block; flex: 0 0 auto;
+      width: 48px; height: 48px;
+      background: var(--leaf);
+      -webkit-mask: url("images/monte-logo.png") center / contain no-repeat;
+      mask: url("images/monte-logo.png") center / contain no-repeat;
+      filter: drop-shadow(0 3px 9px rgba(0,0,0,.12));
+    }
+    .brand-mini span { font: 700 13px/1 "DM Sans", sans-serif; letter-spacing: .17em; color: #e9f2e7; }
+    .top-pill {
+      display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px;
+      border-radius: 999px; border: 1px solid rgba(255,255,255,.18);
+      color: #e2eddf; background: rgba(255,255,255,.07); font-size: 11px;
+      backdrop-filter: blur(10px); white-space: nowrap;
+    }
+    .top-pill i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--leaf); box-shadow: 0 0 12px rgba(184,227,106,.8); }
+    .hero-copy { text-align: center; padding-top: 34px; position: relative; z-index: 2; }
+    .eyebrow {
+      color: var(--leaf); direction: ltr; font: 700 10px/1.5 "DM Sans", sans-serif;
+      letter-spacing: .28em; text-transform: uppercase; margin: 0 0 9px;
+    }
+    .wordmark {
+      direction: ltr; font: 800 clamp(62px, 16vw, 102px)/.9 "DM Sans", sans-serif;
+      letter-spacing: -.075em; margin: 0; color: #fff;
+      text-shadow: 0 7px 30px rgba(0,0,0,.16);
+    }
+    .wordmark .dot { color: var(--leaf); }
+    .tagline { margin: 18px 0 0; color: #e6f0e4; font-size: 17px; font-weight: 600; }
+    .hero-sub { margin: 5px 0 0; color: rgba(231,242,228,.68); font-size: 12px; letter-spacing: .02em; }
+    .hero-cta {
+      margin-top: 22px; display: inline-flex; justify-content: center; align-items: center; gap: 10px;
+      min-height: 46px; padding: 0 21px; color: var(--forest); text-decoration: none;
+      border-radius: 999px; background: var(--leaf); font-weight: 800; font-size: 13px;
+      box-shadow: 0 8px 24px rgba(184,227,106,.2); transition: transform .2s, box-shadow .2s;
+    }
+    .hero-cta:active { transform: scale(.97); }
+    .hero-cta svg { width: 16px; height: 16px; }
+    .mountains { position: absolute; z-index: 1; bottom: -1px; left: 0; width: 100%; height: 148px; pointer-events: none; }
+    .mountains svg { display: block; width: 100%; height: 100%; }
+    .mountain-back { fill: rgba(112,166,111,.3); }
+    .mountain-mid { fill: rgba(27,105,72,.8); }
+    .mountain-front { fill: #fbfcf8; }
+    .hero-spark { position: absolute; color: var(--leaf); opacity: .85; font-size: 17px; }
+    .spark-one { top: 145px; right: 12%; }
+    .spark-two { top: 228px; left: 13%; font-size: 11px; }
+    .spark-three { top: 116px; left: 24%; font-size: 9px; }
 
-/* ---------- hero ---------- */
-.hero{position:relative;overflow:hidden;isolation:isolate;padding-block:3.5rem 3rem}
-.art{position:absolute;z-index:-1;pointer-events:none;display:none}
-.hero-text{position:relative;text-align:var(--hero-align)}
-.eyebrow{font-family:var(--f-body);font-weight:500;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);direction:ltr;text-align:var(--hero-align)}
-.elev{display:none;direction:ltr;text-align:right;font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;color:var(--muted);margin-bottom:.9rem}
-.elev .tri{color:var(--accent)}
-.wordmark{direction:ltr;text-align:var(--hero-align);margin:.7rem 0 .9rem;font-family:var(--f-display);font-weight:400;line-height:.95}
-.wordmark span{display:block}
-.tagline{font-size:1.15rem;font-weight:500;margin-bottom:1.4rem}
-.status{display:inline-flex;align-items:center;gap:.55rem;padding:.35rem .95rem;border:1px solid var(--line);border-radius:99px;font-size:.88rem;background:color-mix(in srgb,var(--bg) 60%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.status .dot{width:.55rem;height:.55rem;border-radius:50%;background:var(--ok)}
-.status.closed .dot{background:var(--muted)}
+    /* CONTENT */
+    .section { padding-top: 35px; scroll-margin-top: 16px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 17px; }
+    .section-kicker { margin: 0 0 2px; color: var(--green); font: 700 9px/1.5 "DM Sans", sans-serif; letter-spacing: .2em; direction: ltr; text-transform: uppercase; }
+    .section-title { margin: 0; color: var(--forest); font-size: 25px; font-weight: 900; line-height: 1.4; }
+    .section-note { color: var(--muted); font-size: 11px; white-space: nowrap; }
+    .featured {
+      position: relative; overflow: hidden; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      min-height: 112px; padding: 18px 20px; border-radius: var(--radius);
+      color: #fff; background: linear-gradient(115deg, #0b3d2e 0%, #176044 65%, #287b52 100%);
+      box-shadow: var(--shadow); margin-bottom: 21px;
+    }
+    .featured::before, .featured::after { content: ""; position: absolute; border: 1px solid rgba(232,243,233,.15); border-radius: 50%; pointer-events: none; }
+    .featured::before { width: 180px; height: 180px; left: -45px; top: -85px; }
+    .featured::after { width: 120px; height: 120px; left: -15px; top: -55px; }
+    .featured-copy { position: relative; z-index: 1; }
+    .featured-label { display: inline-block; color: var(--leaf); font-size: 10px; font-weight: 800; margin-bottom: 3px; }
+    .featured h3 { margin: 0; font-size: 19px; font-weight: 900; line-height: 1.5; }
+    .featured p { margin: 2px 0 0; color: rgba(255,255,255,.7); font-size: 11px; }
+    .featured-price { z-index: 1; min-width: 58px; padding: 7px 10px; text-align: center; border-radius: 14px; background: var(--leaf); color: var(--forest); font-weight: 900; font-size: 17px; }
 
-/* logo: mask of the transparent PNG, painted with the design's text color */
-.logo{display:flex;justify-content:center;margin-bottom:1.1rem}
-html[data-design="2"] .logo,html[data-design="3"] .logo{justify-content:flex-start}
-.logo i{display:block;width:5rem;height:5rem;background:var(--fg);-webkit-mask:url("images/monte-logo.png") center/contain no-repeat;mask:url("images/monte-logo.png") center/contain no-repeat}
-html[data-design="2"] .logo i{background:var(--accent)}
+    .menu-tools { display: grid; gap: 13px; }
+    .search-wrap { position: relative; }
+    .search-icon { position: absolute; top: 50%; right: 15px; width: 18px; height: 18px; color: #82958a; transform: translateY(-50%); pointer-events: none; }
+    .search {
+      width: 100%; height: 49px; padding: 0 45px 0 14px; border: 1px solid var(--line);
+      border-radius: 15px; background: #fff; color: var(--ink); font-size: 13px; outline: none;
+      box-shadow: 0 5px 18px rgba(15,61,45,.035); transition: border-color .2s, box-shadow .2s;
+    }
+    .search::placeholder { color: #9ba9a0; }
+    .search:focus { border-color: #79b18b; box-shadow: 0 0 0 4px rgba(29,118,82,.08); }
+    .tabs {
+      display: flex; gap: 8px; overflow-x: auto; padding: 1px 1px 9px;
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: 0 0 auto; border: 1px solid #e0e9df; border-radius: 999px; background: #fff;
+      color: #53695d; padding: 9px 15px; min-height: 41px; font-size: 12px; font-weight: 700;
+      cursor: pointer; transition: .2s ease; white-space: nowrap;
+    }
+    .tab[aria-selected="true"] { background: var(--forest); border-color: var(--forest); color: #fff; box-shadow: 0 6px 14px rgba(11,61,46,.16); }
+    .tab:active { transform: scale(.97); }
+    .menu-panel { margin-top: 3px; }
+    .group-title {
+      display: flex; align-items: center; gap: 10px; margin: 16px 0 6px;
+      color: var(--forest); font-size: 15px; font-weight: 900;
+    }
+    .group-title::before { content: ""; width: 5px; height: 19px; border-radius: 5px; background: var(--leaf); }
+    .group-title::after { content: ""; height: 1px; flex: 1; background: var(--line); }
+    .menu-list { list-style: none; padding: 0; margin: 0; }
+    .menu-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 13px 4px; border-bottom: 1px solid var(--line); min-height: 57px;
+      animation: arrive .28s ease both;
+    }
+    .item-name { color: #234637; font-size: 14px; font-weight: 700; line-height: 1.65; }
+    .item-price {
+      flex: 0 0 auto; min-width: 49px; padding: 4px 10px; text-align: center;
+      border: 1px solid #e2eddf; border-radius: 10px; background: #f1f7ed;
+      color: var(--green); font-size: 13px; font-weight: 900; font-variant-numeric: tabular-nums;
+    }
+    .menu-note { margin: 12px 0 3px; padding: 11px 13px; border-radius: 12px; background: #eff6ed; color: #5c7565; font-size: 11px; line-height: 1.9; }
+    .empty { padding: 30px 15px; text-align: center; color: var(--muted); font-size: 13px; }
+    .extras { display: grid; gap: 11px; margin-top: 22px; }
+    .extra-card {
+      display: flex; align-items: center; gap: 13px; padding: 15px;
+      border: 1px solid var(--line); border-radius: 17px; background: #fff;
+    }
+    .extra-icon { width: 40px; height: 40px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 13px; background: var(--mint); color: var(--green); }
+    .extra-icon svg { width: 21px; height: 21px; }
+    .extra-card h3 { margin: 0; color: var(--forest); font-size: 14px; font-weight: 900; }
+    .extra-card p { margin: 2px 0 0; color: var(--muted); font-size: 11px; }
 
-/* design 1: dusk */
-html[data-design="1"] .hero{background:var(--sky);padding-block:3.5rem 10.5rem}
-html[data-design="1"] .art1{display:block;inset:auto 0 0 0;height:12rem}
-.art1 svg{position:absolute;inset:0;width:100%;height:100%;display:block}
-.art1 .m1{fill:var(--m1)} .art1 .m2{fill:var(--m2)} .art1 .m3{fill:var(--bg)}
-.sun{position:absolute;right:16%;bottom:5.2rem;width:5rem;height:5rem;border-radius:50%;background:var(--accent);box-shadow:0 0 70px 14px var(--glow)}
-html[data-design="1"] .wordmark .w1{font-size:1.15rem;color:var(--accent);letter-spacing:.42em;text-transform:uppercase;margin-bottom:.25rem;padding-left:.42em}
-html[data-design="1"] .wordmark .w2{font-size:clamp(4.2rem,21vw,6.4rem)}
-@media (prefers-reduced-motion:no-preference){
-  .sun{animation:rise 1.6s cubic-bezier(.2,.7,.2,1) both}
-  @keyframes rise{from{transform:translateY(1.6rem)}to{transform:none}}
-}
+    /* INFO + FOOTER */
+    .info-card { padding: 4px 18px; border: 1px solid var(--line); border-radius: 20px; background: #fff; box-shadow: 0 8px 24px rgba(15,61,45,.04); }
+    .info-row { display: grid; grid-template-columns: 105px minmax(0,1fr); gap: 10px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .info-row:last-child { border-bottom: 0; }
+    .info-label { color: #829188; font-size: 12px; }
+    .info-value { min-width: 0; color: var(--forest); font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
+    .info-value a { text-decoration: none; }
+    .ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; font-family: "DM Sans", sans-serif; }
+    .footer { padding: 30px 0 12px; text-align: center; }
+    .footer-mark { color: var(--green); font: 800 17px/1 "DM Sans", sans-serif; letter-spacing: -.04em; direction: ltr; }
+    .footer p { margin: 8px 0 0; color: #8b9b90; font-size: 11px; }
 
-/* design 2: Italian bar */
-html[data-design="2"] .hero{padding-block:6.8rem 2.75rem}
-html[data-design="2"] .art2{
-  display:block;inset:0 0 auto 0;height:4.2rem;
-  background:repeating-linear-gradient(90deg,var(--accent) 0 2.2rem,var(--surface) 2.2rem 4.4rem);
-  -webkit-mask:linear-gradient(#000 0 0) top/100% 3rem no-repeat,radial-gradient(circle at 50% 0,#000 1.1rem,transparent calc(1.1rem + 1px)) 0 3rem/2.2rem 1.2rem repeat-x;
-  mask:linear-gradient(#000 0 0) top/100% 3rem no-repeat,radial-gradient(circle at 50% 0,#000 1.1rem,transparent calc(1.1rem + 1px)) 0 3rem/2.2rem 1.2rem repeat-x;
-}
-html[data-design="2"] .wordmark{margin-block:.9rem .6rem}
-html[data-design="2"] .wordmark .w1{display:inline-block;font-size:1.25rem;letter-spacing:.14em;text-transform:uppercase;background:var(--accent);color:var(--on-accent);padding:.2em .75em .1em;border-radius:99px;transform:rotate(-4deg);margin-bottom:.5rem}
-html[data-design="2"] .wordmark .w2{font-size:clamp(5.2rem,30vw,9.5rem);text-transform:uppercase;line-height:.85;letter-spacing:.01em}
-html[data-design="2"] .tagline{font-weight:700}
+    .bottom-bar {
+      position: fixed; z-index: 20; right: 0; bottom: 0; left: 0;
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+      background: rgba(251,252,248,.9); border-top: 1px solid rgba(221,232,220,.8);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    }
+    .bottom-inner { width: min(100%, 692px); margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .bottom-link {
+      min-height: 47px; display: flex; justify-content: center; align-items: center; gap: 8px;
+      border-radius: 14px; text-decoration: none; font-size: 13px; font-weight: 900;
+      transition: transform .18s;
+    }
+    .bottom-link:active { transform: scale(.97); }
+    .bottom-link.primary { background: var(--forest); color: #fff; box-shadow: 0 6px 16px rgba(11,61,46,.18); }
+    .bottom-link.secondary { background: var(--leaf); color: var(--forest); }
+    .bottom-link svg { width: 17px; height: 17px; }
 
-/* design 3: topographic map */
-html[data-design="3"] .hero{padding-block:3.5rem 3rem}
-html[data-design="3"] .art3{display:block;inset:0;width:100%;height:100%}
-html[data-design="3"] .elev{display:block}
-html[data-design="3"] .wordmark .w1{font-weight:300;font-size:.95rem;letter-spacing:.38em;text-transform:uppercase;margin-bottom:.4rem}
-html[data-design="3"] .wordmark .w2{font-weight:600;font-size:clamp(2.7rem,15vw,4.3rem);letter-spacing:-.04em}
-html[data-design="3"] .eyebrow{color:var(--fg)}
-
-/* ---------- menu ---------- */
-.section{padding-top:2.5rem}
-.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.1rem;flex-wrap:wrap}
-.sec-head h2{font-size:1.65rem;font-weight:800;line-height:1.3}
-.unit{font-size:.8rem;color:var(--muted)}
-.signature{position:relative;overflow:hidden;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;background:var(--sig-bg);color:var(--sig-fg);border-radius:var(--r);padding:1.2rem 1.3rem;margin-bottom:1.5rem}
-.signature>div{min-width:0;position:relative}
-.sig-label{font-size:.78rem;font-weight:700;opacity:.8}
-.signature h3{font-size:1.25rem;font-weight:800;line-height:1.4;margin:.1rem 0 .2rem}
-.signature h3 .en{font-family:var(--f-display);font-weight:400;font-size:1.05rem;margin-inline-start:.4rem}
-.signature p.desc{font-size:.9rem;line-height:1.7}
-.signature .price{position:relative;background:var(--sig-fg);color:var(--sig-bg)}
-.sig-peak{position:absolute;left:0;bottom:0;width:7rem;height:auto;fill:currentColor;opacity:.13}
-.tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem}
-.tab{flex:none;font-weight:500;font-size:.95rem;padding:.45rem 1.1rem;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
-.tab[aria-selected="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-html[data-design="2"] .tab{border-width:2px;border-radius:.6rem;font-weight:700}
-html[data-design="3"] .tab{border:0;border-bottom:2px solid transparent;border-radius:0;padding-inline:.4rem;margin-inline-end:.8rem}
-html[data-design="3"] .tab[aria-selected="true"]{background:transparent;color:var(--fg);border-bottom-color:var(--accent);font-weight:700}
-.menu{list-style:none;padding:0;display:grid}
-.item{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding-block:1rem;border-bottom:1px solid var(--line);background:var(--item-bg);color:var(--item-fg)}
-.item>div{min-width:0}
-.item h3{font-size:1.05rem;font-weight:700;line-height:1.55}
-.item .en,.signature .en{font-family:var(--f-mono)}
-.item .en{font-size:.74rem;font-weight:400;color:var(--item-muted);margin-inline-start:.5rem;letter-spacing:.03em}
-.item p{font-size:.88rem;line-height:1.7;color:var(--item-muted)}
-.price{flex:none;font-weight:800;font-size:1.05rem;color:var(--price-fg);background:var(--price-bg);min-width:2.9rem;text-align:center;padding:.1rem .65rem;border-radius:99px;font-variant-numeric:tabular-nums}
-.sub{list-style:none;display:flex;align-items:center;justify-content:center;gap:.9rem;font-size:1.3rem;font-weight:800;line-height:1.4;color:var(--fg);padding-top:1.9rem;padding-bottom:.7rem}
-.sub::before,.sub::after{content:"";flex:1;height:1px;background:var(--line)}
-.sub:first-child{padding-top:1.2rem}
-.note{list-style:none;text-align:center;font-size:.9rem;color:var(--muted);padding-top:1.1rem;line-height:1.8}
-.extras{display:grid;gap:1.6rem;margin-top:2.6rem;padding-top:.4rem;border-top:1px solid var(--line)}
-.extra{text-align:center}
-.extra h3{font-size:1.3rem;font-weight:800;line-height:1.4;padding-top:1.2rem}
-.extra p{color:var(--muted);font-size:.95rem;line-height:1.8;margin-top:.3rem}
-.extra .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
-html[data-design="2"] .menu{gap:.7rem}
-html[data-design="2"] .item{border:0;border-radius:var(--r);padding:1rem 1.1rem}
-html[data-design="3"] .item{border-bottom-style:dotted}
-html[data-design="3"] .price{padding-inline:0;min-width:2.4rem;text-align:left}
-
-/* ---------- info ---------- */
-.info{display:grid}
-.info>div{display:grid;grid-template-columns:6rem minmax(0,1fr);gap:.75rem;padding-block:.95rem;border-top:1px solid var(--line)}
-.info dt{color:var(--muted);font-size:.9rem}
-.info dd{font-weight:500}
-.pass{font-family:var(--f-mono);font-size:.95rem;direction:ltr;unicode-bidi:isolate}
-.wifi-row{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .8rem;margin-top:.25rem}
-.copy{font-size:.82rem;padding:.2rem .85rem;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
-.copy-note{font-size:.8rem;color:var(--muted);min-height:1.2em;margin-top:.15rem}
-.handle{direction:ltr;unicode-bidi:isolate;font-family:var(--f-mono);font-size:.95rem}
-.foot{padding-top:2.5rem;color:var(--muted);font-size:.85rem;text-align:center}
-
-/* ---------- design switcher (remove when a design is chosen) ---------- */
-.switcher{position:fixed;inset-inline:0;bottom:0;z-index:10;display:flex;justify-content:center;padding:.75rem 1rem calc(.75rem + env(safe-area-inset-bottom,0px));pointer-events:none}
-.sw{pointer-events:auto;display:flex;gap:.2rem;padding:.3rem;border-radius:99px;background:var(--fg);box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.sw button{border:0;border-radius:99px;padding:.5rem .95rem;font-size:.84rem;font-weight:700;background:transparent;color:var(--bg);cursor:pointer;white-space:nowrap}
-.sw button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
-</style>
-<script>
-try{var h=location.hash.replace('#',''),s=null;try{s=localStorage.getItem('monte-design')}catch(e){}
-document.documentElement.setAttribute('data-design',/^d[123]$/.test(h)?h.slice(1):(/^[123]$/.test(s)?s:'1'))}
-catch(e){document.documentElement.setAttribute('data-design','1')}
-</script>
-
-<main class="page" dir="rtl" lang="fa">
-
+    @keyframes arrive { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    @media (min-width: 600px) {
+      .hero { min-height: 500px; border-radius: 0 0 44px 44px; }
+      .hero-inner { padding-top: 34px; padding-bottom: 153px; }
+      .hero-copy { padding-top: 48px; }
+      .mountains { height: 170px; }
+      .section { padding-top: 43px; }
+      .tabs { flex-wrap: wrap; overflow: visible; }
+      .menu-item { padding-block: 15px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
   <header class="hero">
-    <div class="art art1" aria-hidden="true">
-      <div class="sun"></div>
-      <svg viewBox="0 0 400 200" preserveAspectRatio="none">
-        <polygon class="m1" points="0,120 60,70 110,105 170,45 240,110 300,75 360,100 400,80 400,200 0,200"/>
-        <polygon class="m2" points="0,150 50,115 100,140 160,95 220,145 280,120 340,150 400,125 400,200 0,200"/>
-        <polygon class="m3" points="0,182 70,152 130,172 200,142 270,174 340,154 400,172 400,200 0,200"/>
-      </svg>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <span class="hero-spark spark-one" aria-hidden="true">✳</span>
+    <span class="hero-spark spark-two" aria-hidden="true">✦</span>
+    <span class="hero-spark spark-three" aria-hidden="true">✧</span>
+    <div class="shell hero-inner">
+      <div class="topline">
+        <div class="brand-mini" aria-label="Café Monte">
+          <div class="brand-logo" role="img" aria-label="لوگوی کافه مونته"></div><span>CAFÉ MONTE</span>
+        </div>
+        <div class="top-pill"><i aria-hidden="true"></i> SPECIALTY COFFEE &amp; PASTRY</div>
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow">WELCOME TO YOUR HAPPY PLACE</p>
+        <h1 class="wordmark">monte<span class="dot">.</span></h1>
+        <p class="tagline">هر فنجان، یک قله</p>
+        <p class="hero-sub">طعم لحظه‌هایی که دوست داری تکرار شوند</p>
+        <a class="hero-cta" href="#menu">
+          مشاهده منو
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m0 0 6-6m-6 6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
     </div>
-    <div class="art art2" aria-hidden="true"></div>
-    <canvas class="art art3" id="topo" aria-hidden="true"></canvas>
-
-    <div class="wrap hero-text">
-      <div class="logo"><i role="img" aria-label="لوگوی Café Monte"></i></div>
-      <p class="eyebrow" lang="en">Specialty Coffee &amp; Pastry</p>
-      <p class="elev" lang="en"><span class="tri">▲</span> ELEV. 1 900 m</p>
-      <h1 class="wordmark" lang="en"><span class="w1">Café</span><span class="w2">Monte</span></h1>
-      <p class="tagline">هر فنجان، یک قله</p>
-      <div class="status" id="status" role="status"><span class="dot"></span><span id="statusText"></span></div>
+    <div class="mountains" aria-hidden="true">
+      <svg viewBox="0 0 900 190" preserveAspectRatio="none">
+        <path class="mountain-back" d="M0 112 90 76 160 103 265 34 356 104 449 60 560 113 671 45 770 95 900 44V190H0Z"/>
+        <path class="mountain-mid" d="m0 132 104-42 93 43 103-64 104 59 104-42 105 63 91-54 103 47 93-39v87H0Z"/>
+        <path class="mountain-front" d="m0 151 91-31 100 30 100-43 98 39 104-26 104 36 99-40 98 27 106-28v75H0Z"/>
+      </svg>
     </div>
   </header>
 
-  <section class="section wrap" id="menu" aria-labelledby="menuTitle">
-    <div class="sec-head">
-      <h2 id="menuTitle">منو</h2>
-    </div>
-
-    <div class="tabs" role="tablist" aria-label="دسته‌بندی منو" id="tabs"></div>
-    <ul class="menu" id="menuList" role="tabpanel"></ul>
-
-    <div class="extras">
-      <div class="extra">
-        <h3>پیستری</h3>
-        <p>شیرینی های تازه امروز منتظر شما در ویترین مونته هستند</p>
+  <main>
+    <section class="section shell" id="menu" aria-labelledby="menuTitle">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">A LITTLE SOMETHING FOR EVERY MOOD</p>
+          <h2 class="section-title" id="menuTitle">منوی مونته</h2>
+        </div>
+        <span class="section-note">با عشق آماده می‌شود ♡</span>
       </div>
-      <div class="extra">
-        <h3>توضیحات</h3>
-        <p>امکان سفارش با لاین عربیکا <span class="ltr">+۲۵ت</span></p>
+
+      <article class="featured" aria-label="پیشنهاد ویژه مونته">
+        <div class="featured-copy">
+          <span class="featured-label">MONTE SPECIAL</span>
+          <h3>مونته سیگنیچر</h3>
+          <p>یک انتخاب ویژه از منوی مونته</p>
+        </div>
+        <div class="featured-price" aria-label="قیمت ۳۲۱">۳۲۱</div>
+      </article>
+
+      <div class="menu-tools">
+        <label class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <input id="menuSearch" class="search" type="search" placeholder="جستجو در این دسته..." autocomplete="off" aria-label="جستجو در منو">
+        </label>
+        <div class="tabs" id="tabs" role="tablist" aria-label="دسته‌بندی منو"></div>
       </div>
-    </div>
-  </section>
 
-  <section class="section wrap" id="info" aria-labelledby="infoTitle">
-    <div class="sec-head"><h2 id="infoTitle">اطلاعات</h2></div>
-    <dl class="info">
-      <div><dt>ساعت کار</dt><dd id="hours"></dd></div>
-      <div><dt>تلفن</dt><dd><span class="handle">09307761386</span></dd></div>
-      <div><dt>اینستاگرام</dt><dd><span class="handle">@moonte.cafe</span></dd></div>
-    </dl>
-  </section>
+      <div class="menu-panel" id="menuPanel" role="tabpanel" aria-live="polite" aria-labelledby="tab-food">
+        <ul class="menu-list" id="menuList"></ul>
+      </div>
 
-  <footer class="wrap foot">منتظر دیدار شما هستیم</footer>
+      <div class="extras">
+        <article class="extra-card">
+          <div class="extra-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 10h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-5Zm13 1h2a2 2 0 1 1 0 4h-2M7 6c0-1 1-1.5 1-2.5M12 6c0-1 1-1.5 1-2.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><h3>پیستری</h3><p>شیرینی‌های تازه امروز منتظر شما در ویترین مونته هستند.</p></div>
+        </article>
+        <article class="extra-card">
+          <div class="extra-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 8h14M7 8l-4 8h8L7 8Zm10 0-4 8h8l-4-8Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><h3>توضیحات</h3><p>امکان سفارش با لاین عربیکا <strong dir="ltr">+۲۵ت</strong></p></div>
+        </article>
+      </div>
+    </section>
 
-  <nav class="switcher" aria-label="انتخاب طرح">
-    <div class="sw" id="sw">
-      <button type="button" data-d="1" aria-pressed="true">۱ · غروب</button>
-      <button type="button" data-d="2" aria-pressed="false">۲ · ایتالیایی</button>
-      <button type="button" data-d="3" aria-pressed="false">۳ · نقشه</button>
+    <section class="section shell" id="info" aria-labelledby="infoTitle">
+      <div class="section-head">
+        <div><p class="section-kicker">COME SAY HELLO</p><h2 class="section-title" id="infoTitle">اطلاعات کافه</h2></div>
+      </div>
+      <div class="info-card">
+        <div class="info-row"><div class="info-label">ساعت کاری</div><div class="info-value" id="hours">هر روز ۰۸:۰۰ تا ۲۳:۰۰</div></div>
+        <div class="info-row"><div class="info-label">تلفن</div><div class="info-value"><a class="ltr" href="tel:09307761386">09307761386</a></div></div>
+        <div class="info-row"><div class="info-label">اینستاگرام</div><div class="info-value"><a class="ltr" href="https://instagram.com/moonte.cafe" target="_blank" rel="noopener noreferrer">@moonte.cafe ↗</a></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <div class="footer-mark">CAFÉ MONTE<span style="color:#9ecb55">.</span></div>
+    <p>منتظر دیدار شما هستیم 🌿</p>
+  </footer>
+
+  <nav class="bottom-bar" aria-label="دسترسی سریع">
+    <div class="bottom-inner">
+      <a class="bottom-link primary" href="#menu"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5h14M5 10h14M5 15h9M5 20h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> دیدن منو</a>
+      <a class="bottom-link secondary" href="tel:09307761386"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h3l2 5-2 1.5a15 15 0 0 0 4.5 4.5L16 12l5 2v3c0 1.1-.9 2-2 2C10 19 5 14 5 5c0-1.1.9-2 2-2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> تماس با کافه</a>
     </div>
   </nav>
-</main>
 
-<script>
-(function(){
-  var CAFE={open:8,close:23};
-  var TABS=[['food','غذا و پیش‌غذا'],['coffee','قهوه و نوشیدنی گرم'],['mock','ماکتیل'],['shake','شیک'],['tea','چای و دمنوش'],['hookah','قلیان (هوکا)']];
-  var MENU={
-    food:[
-      ['غذای اصلی',[
-        ['پاستا الفردو چیکن',622],
-        ['پنینی مرغ',495],
-        ['بشقاب رژیمی',855]
-      ]],
-      ['پیش غذا',[
-        ['سالاد سزار',605],
-        ['سیب زمینی',349]
-      ]]
-    ],
-    coffee:[
-      ['بر پایه قهوه',[
-        ['اسپرسو تک',147],
-        ['دبل',159],
-        ['موکا',262],
-        ['امریکانو',184],
-        ['لاته',219],
-        ['کاپوچینو',217],
-        ['کورتادو',209],
-        ['کارامل ماکیاتو',254],
-        ['ماکیاتو وانیل',254],
-        ['ماکیاتو فندق',254],
-        ['ماکیاتو آیریش',254],
-        ['لاته زنجبیل',241],
-        ['کوکو لاته',254],
-        ['آفوگاتو',228],
-        ['ماچا کوکو استرابری',303],
-        ['ماچا لاته',283],
-        ['فراپاچینو شکلاتی',299],
-        ['فراپاچینو وانیل',285]
-      ],
-        'تمام نوشیدنی های بر پایه قهوه بصورت گرم و سرد قابل سرو هستند']
-    ],
-    mock:[
-      ['ماکتیل',[
-        ['لیدی سور',290],
-        ['هاوانا دریم',304],
-        ['مونته سیگنیچر',321],
-        ['کوکونادین',308],
-        ['جینجرید',288],
-        ['موهیتو',268],
-        ['رد موهیتو',268],
-        ['لیموناد',248],
-        ['بلو لاو',305],
-        ['آبمیوه طبیعی',180]
-      ]]
-    ],
-    shake:[
-      ['شیک',[
-        ['شیک شکلات',329],
-        ['شیک شکلات موز',363],
-        ['شیک موز',343],
-        ['شیک توت فرنگی',377],
-        ['شیک لوتوس',359],
-        ['شیک بادام زمینی',347],
-        ['شیک وانیل',301],
-        ['شیک پسته',398]
-      ]]
-    ],
-    tea:[
-      ['چای و دمنوش',[
-        ['اپل پارادایس',197],
-        ['دمنوش آرامش',179],
-        ['کویین بری',164],
-        ['نعنا مراکشی',142],
-        ['چای سیاه',100],
-        ['چای سبز',134],
-        ['چای زعفران',222],
-        ['چای هل',175],
-        ['چای دارچین',117],
-        ['هات چاکلت',236],
-        ['چای ماسالا',208]
-      ]]
-    ],
-    hookah:[
-      ['قلیان (هوکا)',[
-        ['اسپشیال مونته',407],
-        ['کلاسیک',407],
-        ['مسکو',389],
-        ['اسکای فال',389],
-        ['هاوانا',389],
-        ['لیدی',389],
-        ['لاو',389],
-        ['طالبی هندوانه',389],
-        ['دوسیب',389]
-      ]]
-    ]
-  };
+  <script>
+    (() => {
+      'use strict';
+      const TABS = [
+        ['food', 'غذا و پیش‌غذا'],
+        ['coffee', 'قهوه و نوشیدنی گرم'],
+        ['mock', 'ماکتیل'],
+        ['shake', 'شیک'],
+        ['tea', 'چای و دمنوش'],
+        ['hookah', 'قلیان (هوکا)']
+      ];
+      const MENU = {
+        food: [
+          { title: 'غذای اصلی', items: [['پاستا الفردو چیکن', 622], ['پنینی مرغ', 495], ['بشقاب رژیمی', 855]] },
+          { title: 'پیش غذا', items: [['سالاد سزار', 605], ['سیب زمینی', 349]] }
+        ],
+        coffee: [
+          { title: 'بر پایه قهوه', items: [
+            ['اسپرسو تک', 147], ['دبل', 159], ['موکا', 262], ['امریکانو', 184], ['لاته', 219],
+            ['کاپوچینو', 217], ['کورتادو', 209], ['کارامل ماکیاتو', 254], ['ماکیاتو وانیل', 254],
+            ['ماکیاتو فندق', 254], ['ماکیاتو آیریش', 254], ['لاته زنجبیل', 241], ['کوکو لاته', 254],
+            ['آفوگاتو', 228], ['ماچا کوکو استرابری', 303], ['ماچا لاته', 283], ['فراپاچینو شکلاتی', 299],
+            ['فراپاچینو وانیل', 285]
+          ], note: 'تمام نوشیدنی‌های بر پایه قهوه به‌صورت گرم و سرد قابل سرو هستند.' }
+        ],
+        mock: [{ title: 'ماکتیل', items: [
+          ['لیدی سور', 290], ['هاوانا دریم', 304], ['مونته سیگنیچر', 321], ['کوکونادین', 308],
+          ['جینجرید', 288], ['موهیتو', 268], ['رد موهیتو', 268], ['لیموناد', 248], ['بلو لاو', 305], ['آبمیوه طبیعی', 180]
+        ] }],
+        shake: [{ title: 'شیک', items: [
+          ['شیک شکلات', 329], ['شیک شکلات موز', 363], ['شیک موز', 343], ['شیک توت فرنگی', 377],
+          ['شیک لوتوس', 359], ['شیک بادام زمینی', 347], ['شیک وانیل', 301], ['شیک پسته', 398]
+        ] }],
+        tea: [{ title: 'چای و دمنوش', items: [
+          ['اپل پارادایس', 197], ['دمنوش آرامش', 179], ['کویین بری', 164], ['نعنا مراکشی', 142],
+          ['چای سیاه', 100], ['چای سبز', 134], ['چای زعفران', 222], ['چای هل', 175],
+          ['چای دارچین', 117], ['هات چاکلت', 236], ['چای ماسالا', 208]
+        ] }],
+        hookah: [{ title: 'قلیان (هوکا)', items: [
+          ['اسپشیال مونته', 407], ['کلاسیک', 407], ['مسکو', 389], ['اسکای فال', 389],
+          ['هاوانا', 389], ['لیدی', 389], ['لاو', 389], ['طالبی هندوانه', 389], ['دوسیب', 389]
+        ] }]
+      };
 
-  function toFa(v){return String(v).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'.charAt(d)})}
-  var root=document.documentElement;
-  var $=function(id){return document.getElementById(id)};
+      const toFa = value => String(value).replace(/\d/g, digit => '۰۱۲۳۴۵۶۷۸۹'[digit]);
+      const tabsEl = document.getElementById('tabs');
+      const listEl = document.getElementById('menuList');
+      const searchEl = document.getElementById('menuSearch');
+      const panelEl = document.getElementById('menuPanel');
+      let currentCategory = 'food';
 
-  /* menu */
-  var current='food';
-  function renderMenu(){
-    var html='';
-    MENU[current].forEach(function(grp){
-      html+='<li class="sub">'+grp[0]+'</li>';
-      grp[1].forEach(function(it){
-        html+='<li class="item"><div><h3>'+it[0]+'</h3></div><b class="price">'+toFa(it[1])+'</b></li>';
-      });
-      if(grp[2])html+='<li class="note">'+grp[2]+'</li>';
-    });
-    $('menuList').innerHTML=html;
-    Array.prototype.forEach.call($('tabs').children,function(b){b.setAttribute('aria-selected',b.dataset.k===current?'true':'false')});
-  }
-  TABS.forEach(function(t){
-    var b=document.createElement('button');
-    b.type='button';b.className='tab';b.setAttribute('role','tab');b.dataset.k=t[0];b.textContent=t[1];
-    b.addEventListener('click',function(){current=t[0];renderMenu()});
-    $('tabs').appendChild(b);
-  });
-  $('hours').textContent='هر روز '+toFa(CAFE.open)+':۰۰ تا '+toFa(CAFE.close)+':۰۰';
-  renderMenu();
-
-  /* open / closed */
-  function renderStatus(){
-    var d=new Date(),h=d.getHours()+d.getMinutes()/60,open=h>=CAFE.open&&h<CAFE.close;
-    $('status').classList.toggle('closed',!open);
-    $('statusText').textContent=open?'الان باز است · تا '+toFa(CAFE.close)+':۰۰':'الان بسته است · ساعت '+toFa(CAFE.open)+':۰۰ باز می‌شود';
-  }
-  renderStatus();setInterval(renderStatus,60000);
-
-  /* topographic canvas (design 3) */
-  function drawTopo(){
-    if(root.getAttribute('data-design')!=='3')return;
-    var c=$('topo'),hero=c.parentElement,w=hero.clientWidth,h=hero.clientHeight;
-    if(!w||!h)return;
-    var dpr=Math.min(window.devicePixelRatio||1,2);
-    c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);
-    var ctx=c.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
-    var cs=getComputedStyle(root),line=cs.getPropertyValue('--contour').trim(),idx=cs.getPropertyValue('--accent').trim();
-    var cx=w*0.2,cy=h*0.78;
-    for(var k=1;k<=28;k++){
-      ctx.beginPath();
-      for(var i=0;i<=140;i++){
-        var t=i/140*Math.PI*2;
-        var wob=1+0.17*Math.sin(2*t+0.6+k*0.045)+0.11*Math.sin(3*t+2.1-k*0.03)+0.06*Math.sin(5*t+k*0.08);
-        var x=cx+Math.cos(t)*k*16*wob*1.2,y=cy+Math.sin(t)*k*16*wob*0.8;
-        if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+      function renderTabs() {
+        tabsEl.replaceChildren();
+        TABS.forEach(([key, label]) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'tab';
+          button.id = `tab-${key}`;
+          button.dataset.key = key;
+          button.setAttribute('role', 'tab');
+          button.setAttribute('aria-controls', 'menuPanel');
+          button.setAttribute('aria-selected', String(key === currentCategory));
+          button.tabIndex = key === currentCategory ? 0 : -1;
+          button.textContent = label;
+          button.addEventListener('click', () => selectCategory(key));
+          tabsEl.appendChild(button);
+        });
       }
-      ctx.closePath();
-      var major=k%5===0;
-      ctx.strokeStyle=major?idx:line;ctx.globalAlpha=major?0.85:1;ctx.lineWidth=major?1.6:1;
-      ctx.stroke();
-    }
-    ctx.globalAlpha=1;
-  }
-  var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(drawTopo,120)});
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawTopo);
 
-  /* design switcher */
-  function setDesign(n){
-    root.setAttribute('data-design',n);
-    try{localStorage.setItem('monte-design',n)}catch(e){}
-    Array.prototype.forEach.call($('sw').children,function(b){b.setAttribute('aria-pressed',b.dataset.d===n?'true':'false')});
-    requestAnimationFrame(drawTopo);
-  }
-  Array.prototype.forEach.call($('sw').children,function(b){b.addEventListener('click',function(){setDesign(b.dataset.d)})});
-  setDesign(root.getAttribute('data-design')||'1');
-})();
-</script>
+      function selectCategory(key) {
+        if (!MENU[key]) return;
+        currentCategory = key;
+        searchEl.value = '';
+        renderTabs();
+        panelEl.setAttribute('aria-labelledby', `tab-${key}`);
+        renderMenu();
+        const activeTab = document.getElementById(`tab-${key}`);
+        activeTab?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+      }
+
+      function renderMenu() {
+        const query = searchEl.value.trim().toLocaleLowerCase('fa');
+        const groups = MENU[currentCategory];
+        const fragment = document.createDocumentFragment();
+        let matchCount = 0;
+
+        groups.forEach(group => {
+          const matchingItems = group.items.filter(([name, price]) =>
+            name.toLocaleLowerCase('fa').includes(query) || String(price).includes(query) || toFa(price).includes(query)
+          );
+          if (!matchingItems.length) return;
+          matchCount += matchingItems.length;
+
+          const heading = document.createElement('li');
+          heading.className = 'group-title';
+          heading.textContent = group.title;
+          fragment.appendChild(heading);
+
+          matchingItems.forEach(([name, price]) => {
+            const item = document.createElement('li');
+            item.className = 'menu-item';
+            const itemName = document.createElement('span');
+            itemName.className = 'item-name';
+            itemName.textContent = name;
+            const itemPrice = document.createElement('b');
+            itemPrice.className = 'item-price';
+            itemPrice.textContent = toFa(price);
+            itemPrice.setAttribute('aria-label', `قیمت ${toFa(price)}`);
+            item.append(itemName, itemPrice);
+            fragment.appendChild(item);
+          });
+          if (group.note && !query) {
+            const note = document.createElement('li');
+            note.className = 'menu-note';
+            note.textContent = group.note;
+            fragment.appendChild(note);
+          }
+        });
+
+        if (!matchCount) {
+          const empty = document.createElement('li');
+          empty.className = 'empty';
+          empty.textContent = 'موردی با این عبارت پیدا نشد. عبارت دیگری را امتحان کنید.';
+          fragment.appendChild(empty);
+        }
+        listEl.replaceChildren(fragment);
+      }
+
+      searchEl.addEventListener('input', renderMenu);
+      renderTabs();
+      panelEl.setAttribute('aria-labelledby', 'tab-food');
+      renderMenu();
+    })();
+  </script>
+</body>
+</html>
